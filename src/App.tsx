@@ -1,26 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function AppContainer(props: any) {
+    const [age, setAge] = useState(18);
+    const [weight, setWeight] = useState(70);
+    const [coords, setCoords] = useState({x: '0', y: '0'});
+
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setAge(age => age + 1)
+        }, 1000)
+
+        return () => {
+            clearInterval(interval)
+        }
+    }, [weight])
+
+
+    let style = {
+        left: coords.x + 'px',
+        top: coords.y + 'px'
+    }
+
+    const onAreaClick = (e: any) => {
+        setCoords({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY})
+    }
+
+    return (
+        <>
+            coords: <div className={'area'} onClick={onAreaClick}>
+            <div className="point" style={style}></div>
+        </div>
+            <App {...props} age={age} setAge={setAge} weight={weight}
+                 setWeight={setWeight}/>
+        </>
+    );
 }
 
-export default App;
+function App({age, setAge, weight, setWeight}: any) {
+    return (
+        <div className="App">
+            age: {age}
+            <button onClick={() => setAge(age + 1)}>+</button>
+            weight: {weight}
+            <button onClick={() => setWeight(weight + 1)}>+</button>
+        </div>
+    );
+}
+
+export default AppContainer;
