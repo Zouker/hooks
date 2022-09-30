@@ -2,15 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import HocVsHook from './HocVsHook';
+import UsersManagement from './UsersManagement';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
-    <React.StrictMode>
-        <HocVsHook/>
-    </React.StrictMode>
+    <UsersManagement/>
 );
 
 // If you want to start measuring performance in your app, pass a function
